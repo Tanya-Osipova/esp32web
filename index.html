@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pump Control</title>
+  <!-- STYLES -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    .body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0.8rem;
+      box-shadow: 0px 2px 5px #0000b3;
+    }
+    .header__title {
+      font-size: 1.5rem;
+      text-transform: capitalize;
+    }
+    .main {
+      width: calc(100% - 2 * 10px);
+      margin: 1rem auto;
+      padding: 1rem 0;
+    }
+    .speed__title {
+      font-weight: bold;
+    }
+    .speed__title-value {
+      font-weight: normal;
+    }
+    .speed__buttons {
+      margin: 2rem 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      justify-content: space-between;
+      gap: 30px 15px;
+    }
+    .speed__button,
+    .timer__button {
+      border: none;
+      outline: none;
+      background-color: rgba(128, 128, 128, 0.5);
+      color: #fff;
+      padding: 10px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      text-align: center;
+      font-weight: bold;
+      font-size: 0.80rem;
+      cursor: pointer;
+      letter-spacing: 1px;
+      transition: 0.3s linear;
+    }
+    .speed__button:hover, .timer__button:hover {
+      box-shadow: 0px 2px 5px #0000b3;
+    }
+    .speed__button_start {
+      grid-column: 1 / -1; 
+      color: #00cc00;
+    }
+    .speed__button_stop {
+      grid-column: 1 / -1; 
+      color: #ff1a1a;
+    }
+    .timer {
+      margin: 3rem 0;
+    }
+    .timer__field {
+      margin: 2rem 0;
+      font-size: 1rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    .timer__label {
+      font-weight: bold;
+      font-size: 1rem;
+      display: flex;
+      align-items: flex-end;
+    }
+    .timer__input {
+      border-radius: 5px;
+      border: 1px solid #0000b3;
+      outline: none;
+      background-color: rgba(128, 128, 128, 0.5);
+      width: 50%;
+      height: 25px;
+      text-indent: 5px;
+      margin: 0 5px;
+      font-size: 1rem;
+      color: #fff;
+      transition: .3s linear;
+    }
+    .timer__input:focus {
+      box-shadow: 0px 2px 5px #0000b3;
+    }
+    .timer__time-value {
+      grid-column: -1;
+    }
+    .timer__buttons {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+    }
+    /* create custom checkbox */
+    .timer__checkbox-container {
+      display: flex;
+      position: relative;
+      padding-left: 35px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+    .timer__checkbox {
+      position: absolute;
+      opacity: 0;
+      cursor: pointer;
+      height: 0;
+      width: 0;
+    }
+    .timer__checkmark {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(128, 128, 128, 0.5);
+      border: 1px solid #0000b3;
+      border-radius: 5px;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 25px;
+      height: 25px;
+      transition: 0.3s linear;
+    }
+    .timer__checkbox-container:hover .timer__checkmark {
+      background-color: #0000b3;
+    }
+    .timer__checkbox:checked ~ .timer__checkmark {
+      background-color: #0000b3;
+    }
+    .timer__checkmark:after {
+      content: "";
+      position: absolute;
+      display: none;
+    }
+    .timer__checkbox:checked ~ .timer__checkmark:after {
+      display: block;
+    }
+    .timer__checkmark:after {
+      width: 5px;
+      height: 10px;
+      border: solid #fff;
+      border-width: 0 3px 3px 0;
+      -webkit-transform: rotate(45deg);
+      -ms-transform: rotate(45deg);
+      transform: rotate(45deg);
+    }
+
+    @media screen and (min-width:600px) {
+      .main {
+        width: 300px;
+      }
+    }
+  </style>
+</head>
+<body class="body">
+  <header class="header">
+    <h1 class="header__title">Pump control</h1>
+  </header>
+  <main class="main">
+    <!-- SPEED -->
+    <section class="speed">
+      <p class="speed__title">Speed: <span class="speed__title-value">lorem</span></p>
+      <!-- BUTTONS -->
+      <div class="speed__buttons">
+        <button class="speed__button" type="button">up</button>
+        <button class="speed__button" type="button">down</button>
+        <button class="speed__button" type="button">reverse</button>
+        <button class="speed__button speed__button_start" type="button">Start</button>
+        <button class="speed__button speed__button_stop" type="button">Stop</button>
+      </div>
+    </section>
+    <!-- TIMER -->
+    <section class="timer">
+      <label class="timer__checkbox-container">Use timer
+        <input class="timer__checkbox" type="checkbox" checked="checked">
+        <span class="timer__checkmark"></span>
+      </label>
+      <div class="timer__field">
+        <label class="timer__label" for="timeleft">Time left:
+          <input class="timer__input" type="number" id="timeleft" name="timeleft">
+        </label>
+        <p class="timer__time-value">time</p>
+      </div>
+      <div class="timer__buttons">
+        <button class="timer__button" type="button">Set timer</button>
+        <button class="timer__button" type="button">Reset timer</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- JS -->
+  <script>
+   
+  </script>
+  
+</body>
+</html>
